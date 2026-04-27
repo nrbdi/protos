@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package order.v1;
+
+option go_package = "github.com/nrbdi/generated-proto/order";
+
+import "google/protobuf/timestamp.proto";
+
+service OrderService {
+  rpc SubscribeToOrderUpdates(OrderRequest) returns (stream OrderStatusUpdate);
+}
+
+message OrderRequest {
+  string order_id = 1;
+}
+
+message OrderStatusUpdate {
+  string order_id                      = 1;
+  string status                        = 2;
+  string item_name                     = 3;
+  int64  amount                        = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
